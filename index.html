@@ -21,6 +21,7 @@ p { font-size: 1.1em; margin-bottom: 15px; line-height: 1.6; text-shadow: 0 0 8p
 
 /* ===== 新增：图片旋转验证样式 ===== */
 [hidden] { display: none !important; }
+#main { animation: fadeIn .6s ease-in; } /* 验证通过后主内容淡入 */
 .captcha { margin-top: 10px; padding: 20px 16px 18px; border-radius: 14px; background: rgba(0,0,0,.5); border: 1px solid rgba(255,235,59,.4); }
 .captcha h2 { margin: 0 0 12px; font-size: 1.7em; color: #ffeb3b; text-shadow: 0 0 12px rgba(255,235,59,.6); }
 /* 两步式引导：大字号 */
@@ -55,11 +56,7 @@ p { font-size: 1.1em; margin-bottom: 15px; line-height: 1.6; text-shadow: 0 0 8p
 </head>
 <body>
 <div class="container">
-  <h1>域名发布公告</h1>
-  <p>本页面为永久网址，请务必收藏</p>
-  <p class="domain">tgios.top</p>
-
-  <!-- 新增：旋转验证卡片 -->
+  <!-- 新增：旋转验证卡片（进入页面时只显示它） -->
   <div class="captcha" id="captcha">
     <h2>把图片转正，才能继续</h2>
     <ol class="steps">
@@ -80,8 +77,11 @@ p { font-size: 1.1em; margin-bottom: 15px; line-height: 1.6; text-shadow: 0 0 8p
   </div>
   <noscript><p>请开启 JavaScript 后继续访问。</p></noscript>
 
-  <!-- 原有提示语与按钮：验证成功后一起显示（链接保持不变） -->
-  <div id="after" hidden>
+  <!-- 原有主内容：验证成功后才显示（文字与链接保持不变） -->
+  <div id="main" hidden>
+    <h1>域名发布公告</h1>
+    <p>本页面为永久网址，请务必收藏</p>
+    <p class="domain">tgios.top</p>
     <p>请点击下方按钮，前往最新网址</p>
     <a class="btn" href="https://tgmtp.top">
       前往最新网址 →
@@ -181,7 +181,7 @@ p { font-size: 1.1em; margin-bottom: 15px; line-height: 1.6; text-shadow: 0 0 8p
         setStatus('✓ 验证成功', 'ok');
         setTimeout(function () {
           card.hidden = true;
-          $('after').hidden = false; // 验证成功：显示原有提示语与“前往最新网址”按钮
+          $('main').hidden = false;  // 验证成功：显示原有主内容（公告、域名、前往按钮）
         }, 600);
       } else {
         fails++;
